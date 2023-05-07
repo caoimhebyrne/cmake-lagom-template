@@ -1,0 +1,39 @@
+name: Build
+
+on:
+  push:
+    branches: ["main"]
+
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential gcc-12 g++-12 ninja-build
+
+      - name: Use GCC 12
+        run: |
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 12
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 12
+          sudo update-alternatives --set cc /usr/bin/gcc
+          sudo update-alternatives --set c++ /usr/bin/g++
+
+      - name: Setup CMake
+        run: Scripts/setup.sh
+
+      - name: Build project
+        run: Scripts/build-and-run.sh
+
+      # Attach the cmake_lagom_template binary as an artifact to this build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: cmake_lagom_template
+          path: ./Build/cmake_lagom_template
