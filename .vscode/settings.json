@@ -1,0 +1,30 @@
+{
+    // Excluding the generated directories keeps your file view clean and speeds up search.
+    "files.exclude": {
+      "**/.git": true,
+    },
+
+    "search.exclude": {
+      "**/.git": true,
+      "Build/**": true,
+    },
+    
+    // Tab settings
+    "editor.tabSize": 4,
+    "editor.useTabStops": false,
+
+    // format trailing new lines
+    "files.trimFinalNewlines": true,
+    "files.insertFinalNewline": true,
+
+    // git commit message length
+    "git.inputValidationLength": 72,
+    "git.inputValidationSubjectLength": 72,
+    "git.useEditorAsCommitInput": true,
+
+    // Tell clangd to ask the cross-compilers for their builtin include paths
+    "clangd.arguments": [
+      "--header-insertion=never" // See https://github.com/clangd/clangd/issues/1247
+    ],
+  }
+  
